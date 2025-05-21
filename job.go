@@ -127,7 +127,7 @@ func (j *Job) GetBuild(ctx context.Context, id int64) (*Build, error) {
 		return nil, err
 	}
 	jobURL := url.Path
-	build := Build{Jenkins: j.Jenkins, Job: j, Raw: new(BuildResponse), Depth: 1, Base: jobURL + strconv.FormatInt(id, 10)}
+	build := Build{Jenkins: j.Jenkins, Job: j, Raw: new(BuildResponse), Depth: 1, Base: jobURL + "/" + strconv.FormatInt(id, 10)}
 	status, err := build.Poll(ctx)
 	if err != nil {
 		return nil, err

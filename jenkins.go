@@ -284,8 +284,10 @@ func (j *Jenkins) GetBuildFromQueueID(ctx context.Context, queueid int64) (*Buil
 		time.Sleep(1000 * time.Millisecond)
 		_, err = task.Poll(ctx)
 		if err != nil {
-			fmt.Printf(task.Raw.Why)
 			return nil, err
+		}
+		if len(task.Raw.Why) > 0 {
+			fmt.Printf(task.Raw.Why)
 		}
 	}
 

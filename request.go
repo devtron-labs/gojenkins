@@ -227,9 +227,20 @@ func (r *Requester) Do(ctx context.Context, ar *APIRequest, responseStruct inter
 		req.Header.Add(k, ar.Headers.Get(k))
 	}
 
+	reqDump, err := httputil.DumpRequest(req, true)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("Request Dump: %q\n", reqDump)
+
 	if response, err := r.Client.Do(req); err != nil {
 		return nil, err
 	} else {
+		responseDump, err := httputil.DumpResponse(response, true)
+		if err != nil {
+			log.Fatal(err)
+		}
+		log.Printf("Response Dump: %q\n", responseDump)
 		if v := ctx.Value("debug"); v != nil {
 			dump, err := httputil.DumpResponse(response, true)
 			if err != nil {

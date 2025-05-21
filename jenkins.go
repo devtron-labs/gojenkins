@@ -287,7 +287,7 @@ func (j *Jenkins) GetBuildFromQueueID(ctx context.Context, queueid int64) (*Buil
 			return nil, err
 		}
 		if len(task.Raw.Why) > 0 {
-			fmt.Printf(task.Raw.Why)
+			fmt.Println(task.Raw.Why)
 		}
 	}
 
